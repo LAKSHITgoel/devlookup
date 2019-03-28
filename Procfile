@@ -1,1 +1,1 @@
-web: npm start
+web: node -r dotenv/config server.js dotenv_config_path=.env
