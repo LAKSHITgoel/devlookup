@@ -1,6 +1,6 @@
-import isEmpty from '../validation/is-empty';
+import isEmpty from "../validation/is-empty";
 
-import { SET_CURRENT_USER } from '../actions/types';
+import { SET_CURRENT_USER, UPDATE_PROFILE_IMAGE } from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
@@ -14,6 +14,15 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
+      };
+
+    case UPDATE_PROFILE_IMAGE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          avatar: action.payload
+        }
       };
     default:
       return state;
