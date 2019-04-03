@@ -1,0 +1,16 @@
+.loader-container{
+    width:160px;
+    height:18px;
+    border-radius: 5px;
+    border: 1px solid rgba(150, 150, 150, 0.5);;
+}
+.loader-bar{
+    font-family:  monospace;
+    height: 18px;
+    border-radius: 5px;
+    font-size: 12px;
+    text-align:  center;
+    color: #fff;
+    background-color:  rgb(85, 163, 182);
+    border:2px solid rgb(6, 147, 182);
+}

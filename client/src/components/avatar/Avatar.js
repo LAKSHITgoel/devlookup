@@ -3,15 +3,16 @@ import "./avatar.css";
 import { connect } from "react-redux";
 import axios from "axios";
 import { updateProfileImage } from "../../actions/profileActions";
+import {LoaderBar} from "../image-loader";
 
 class Avatar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showDesktop: false,
-      file: null,
       imgURL: null,
-      uploadStatus: null
+      uploadStatus: null,
+      progress:0
     };
   }
 
@@ -19,18 +20,23 @@ class Avatar extends React.Component {
   hide = () => this.setState({ showDesktop: false });
   handleFileUpload = async e => {
     e.persist();
-    await this.setState({ file: e.target.files[0] });
-
     let filetype = e.target.files[0].type.split("/")[1];
 
     let uploadConfig = await axios.get(`api/profile/dp?filetype=${filetype}`);
-
-    let res = await fetch(uploadConfig.data.url, {
-      method: "PUT",
-      body: e.target.files[0],
+    // for cloning and deleting auth header from axios config
+    //========================================
+    let crossDomain = axios;
+    delete crossDomain.defaults.headers.common["Authorization"];
+    let res = await crossDomain.put(uploadConfig.data.url, e.target.files[0], {
       headers: {
-        "Content-Type": "image/*",
-        "Access-Control-Allow-Origin": "*"
+        "Content-Type": e.target.files[0].type
+      },
+      onUploadProgress: progressEvent => {
+        let progress = Math.round(
+          (progressEvent.loaded / progressEvent.total) * 100
+        );
+        this.setState(() => ({ progress }));
+       
       }
     });
     if (res.status == 200) {
@@ -41,11 +47,7 @@ class Avatar extends React.Component {
   };
 
   onSave = async () => {
-    /*let res = await axios.post("/api/profile/update-profile-image", {
-      imageURL: this.state.imgURL
-    });*/
     this.props.updateProfileImage(this.state.imgURL);
-    // console.log(res);
   };
 
   render() {
@@ -81,9 +83,10 @@ class Avatar extends React.Component {
               />
             </div>
           )}
+         {this.state.progress != 0 && <LoaderBar progress={this.state.progress} />}
         </div>
         <div className="save-container ml-5">
-          {this.state.file != null && (
+          {this.state.progress == 100 && (
             <button onClick={this.onSave} className="save-btn btn btn-primary ">
               Save
             </button>

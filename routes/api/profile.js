@@ -207,7 +207,7 @@ router.get(
       "putObject",
       {
         Bucket: "dev-buck-102",
-        ContentType: `image/*`,
+        ContentType: `image/${req.query.filetype}`,
         Key: key
       },
       (err, url) => res.send({ key, url, baseURL: keys.s3ProfilePicBaseURL })
