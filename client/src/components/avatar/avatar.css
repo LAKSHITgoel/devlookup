@@ -1,0 +1,39 @@
+.avatar {
+  display: flex;
+  flex-direction: row;
+}
+.upload-container {
+  position: relative;
+}
+.save-container {
+  position: relative;
+}
+.save-btn {
+  position: absolute;
+  bottom: 0;
+}
+.big1-avatar {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+.upload-image {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  height: 200px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.addImg-icon {
+  font-size: 50px;
+}
+
+.hide-upload {
+  display: none;
+}
