@@ -63,7 +63,15 @@ export const createProfile = (profileData, history) => dispatch => {
 
 export const updateProfileImage = imageURL => dispatch => {
   axios
-    .post("/api/profile/update-profile-image", { imageURL })
+    .post(
+      "/api/profile/update-profile-image",
+      { imageURL },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken")
+        }
+      }
+    )
     .then(res => {
       // console.log(re);
       dispatch({
