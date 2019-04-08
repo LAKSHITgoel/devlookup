@@ -2,8 +2,10 @@ import React from "react";
 
 export default () => {
   return (
-    <footer className="bg-dark text-white mt-5 p-4 text-center">
-      Copyright &copy; {new Date().getFullYear()} devLookup
+    <footer className="page-footer font-small mdb-color darken-3">
+      <div className="footer-copyright text-center py-4">
+        &copy; Copyright: {new Date().getFullYear()} {"< devLookup />"}
+      </div>
     </footer>
   );
 };

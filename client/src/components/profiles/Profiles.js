@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Spinner from '../common/Spinner';
-import ProfileItem from './ProfileItem';
-import { getProfiles } from '../../actions/profileActions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Spinner from "../common/Spinner";
+import ProfileItem from "./ProfileItem";
+import { getProfiles } from "../../actions/profileActions";
 
 class Profiles extends Component {
   componentDidMount() {
@@ -15,11 +15,21 @@ class Profiles extends Component {
     let profileItems;
 
     if (profiles === null || loading) {
-      profileItems = <Spinner />;
+      profileItems = (
+        <div className="col-12" style={{ marginTop: 20 }}>
+          <Spinner />
+        </div>
+      );
     } else {
       if (profiles.length > 0) {
         profileItems = profiles.map(profile => (
-          <ProfileItem key={profile._id} profile={profile} />
+          <div
+            key={profile._id}
+            className="col-xl-4 col-lg-5 col-md-6 col-sm-6"
+            style={{ marginTop: 20 }}
+          >
+            <ProfileItem profile={profile} />
+          </div>
         ));
       } else {
         profileItems = <h4>No profiles found...</h4>;
@@ -29,15 +39,11 @@ class Profiles extends Component {
     return (
       <div className="profiles">
         <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4 text-center">Developer Profiles</h1>
-              <p className="lead text-center">
-                Browse and connect with developers
-              </p>
-              {profileItems}
-            </div>
-          </div>
+          <br />
+          <br />
+          <h1 className="display-4 text-center">Developer Profiles</h1>
+          <p className="lead text-center">Browse and connect with developers</p>
+          <div className="row">{profileItems}</div>
         </div>
       </div>
     );
@@ -53,4 +59,7 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getProfiles })(Profiles);
+export default connect(
+  mapStateToProps,
+  { getProfiles }
+)(Profiles);
