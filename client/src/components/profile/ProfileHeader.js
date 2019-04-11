@@ -8,7 +8,7 @@ class ProfileHeader extends Component {
     return (
       <div className="row">
         <div className="col-md-12">
-          <div className="card card-body bg-info text-white mb-3">
+          <div className="card card-body aqua-gradient text-white mb-3">
             <div className="row">
               <div className="col-4 col-md-3 m-auto">
                 <img
@@ -23,7 +23,7 @@ class ProfileHeader extends Component {
               <p className="lead text-center">
                 {profile.status}{" "}
                 {isEmpty(profile.company) ? null : (
-                  <span>at {profile.company}</span>
+                  <span>@{profile.company}</span>
                 )}
               </p>
               {isEmpty(profile.location) ? null : <p>{profile.location}</p>}

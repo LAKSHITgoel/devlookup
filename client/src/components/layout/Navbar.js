@@ -1,16 +1,25 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { logoutUser } from '../../actions/authActions';
-import { clearCurrentProfile } from '../../actions/profileActions';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
+import { clearCurrentProfile } from "../../actions/profileActions";
+import { MDBNavbarToggler, MDBCollapse } from "mdbreact";
 
 class Navbar extends Component {
+  state = {
+    isOpen: false
+  };
+
   onLogoutClick(e) {
     e.preventDefault();
     this.props.clearCurrentProfile();
     this.props.logoutUser();
   }
+
+  toggleCollapse = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
@@ -37,9 +46,9 @@ class Navbar extends Component {
               className="rounded-circle"
               src={user.avatar}
               alt={user.name}
-              style={{ width: '25px', marginRight: '5px' }}
+              style={{ width: "25px", marginRight: "5px" }}
               title="You must have a Gravatar connected to your email to display an image"
-            />{' '}
+            />{" "}
             Logout
           </a>
         </li>
@@ -62,31 +71,23 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+      <nav className="navbar navbar-expand-lg navbar-dark primary-color">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            DevConnector
+            {"< devLookup />"}
           </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-
-          <div className="collapse navbar-collapse" id="mobile-nav">
+          <MDBNavbarToggler onClick={this.toggleCollapse} left />
+          <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
                 <Link className="nav-link" to="/profiles">
-                  {' '}
+                  {" "}
                   Developers
                 </Link>
               </li>
             </ul>
             {isAuthenticated ? authLinks : guestLinks}
-          </div>
+          </MDBCollapse>
         </div>
       </nav>
     );
@@ -102,6 +103,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(
-  Navbar
-);
+export default connect(
+  mapStateToProps,
+  { logoutUser, clearCurrentProfile }
+)(Navbar);
