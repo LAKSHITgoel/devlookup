@@ -1,4 +1,4 @@
-# DevConnector
+# devLookup
 
 > Small social network app built with the MERN stack.
 
