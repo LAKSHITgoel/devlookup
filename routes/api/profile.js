@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const passport = require("passport");
 const s3 = require("../services/upload");
 const keys = require("../../config/keys");
