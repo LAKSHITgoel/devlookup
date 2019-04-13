@@ -121,7 +121,7 @@ const User = require("../../models/User");
 //  auth/github
 router.get(
   "/",
-  passport.authenticate("github"),
+  passport.authenticate("github",{session:false}),
   (req, res) => {
     res.send("path:/auth/github");
   }
@@ -131,12 +131,18 @@ router.get(
 router.get(
   "/callback",
   passport.authenticate("github", {
-    successRedirect: "/",
-    failureRedirect: "/login"
+    // successRedirect: "/",
+    // failureRedirect: "/login",
+    session :false
   }),
   (req, res) => {
-    // console.log(req.user);
-    // res.redirect("/");
+    if(req.user) {
+      console.log("user authnticated",req.user.name);
+      res.redirect("/")
+    } else {
+      console.log("Unauthorized User")
+      res.redirect("/login")
+    }
   }
 );
 

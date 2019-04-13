@@ -2,17 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-const cookieSession = require("cookie-session");
 const passportConfig = require("./config/passport");
-//const dotenv = require("dotenv");
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
 const github = require("./routes/services/auth.github");
-// const linkedin = require("./routes/services/auth.linkedin");
 const google = require("./routes/services/auth.google");
-const keys = require("./config/keys");
 const app = express();
+const upload = require("./routes/services/upload");
 // const ejs = require("ejs");
 
 // Body parser middleware
@@ -29,19 +26,13 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-app.use(
-  cookieSession({
-    expiry: 7 * 24 * 60 * 60 * 1000,
-    secret: [keys.secretOrKey]
-  })
-);
+
 // Passport middleware
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 // Passport Config
 passportConfig.passportGoogle(passport);
-// passportConfig.passportLinkedIn(passport);
 passportConfig.passportGithub(passport);
 passportConfig.passportJwt(passport);
 
@@ -49,8 +40,8 @@ passportConfig.passportJwt(passport);
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);
+app.use("/api/services", upload);
 app.use("/auth/github", github);
-// app.use("/auth/linkedin", linkedin);
 app.use("/auth/google", google);
 
 // Server static assets if in production

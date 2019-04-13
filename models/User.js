@@ -9,15 +9,18 @@ const UserSchema = new Schema({
   providerId: {
     type: String
   },
+  mobile: {
+    type: String
+  },
   name: {
     type: String,
     required: true
   },
   email: {
-    type: String,
+    type: String
   },
   password: {
-    type: String,
+    type: String
   },
   avatar: {
     type: String

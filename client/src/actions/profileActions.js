@@ -64,7 +64,7 @@ export const createProfile = (profileData, history) => dispatch => {
 export const updateProfileImage = imageURL => dispatch => {
   axios
     .post(
-      "/api/profile/update-profile-image",
+      "/api/users/avatar",
       { imageURL },
       {
         headers: {

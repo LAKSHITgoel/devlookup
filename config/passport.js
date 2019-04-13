@@ -1,26 +1,16 @@
 const JwtStrategy = require("passport-jwt").Strategy;
 const GithubStrategy = require("passport-github2").Strategy;
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
-// const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 const keys = require("../config/keys");
-const passport = require("passport");
+ passport = require("passport");
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
 
-passport.serializeUser(function(user, done) {
-  console.log(user);
-  done(null, user._id);
-});
-passport.deserializeUser(function(id, done) {
-  User.findById(id).then(user => {
-    done(null, user);
-  });
-});
 
 module.exports = {
   passportGoogle: function(passport) {
@@ -40,7 +30,7 @@ module.exports = {
           }).then(currentUser => {
             if (currentUser) {
               // console.log("user already exists", currentUser);
-              done(null, currentUser);
+              return done(null, currentUser);
             } else {
               let newUser = {};
               let newProfile = {};
@@ -93,7 +83,7 @@ module.exports = {
                         console.log("Error in creatng Google profile :", err)
                       );
                   }
-                  done(null, newUser);
+                  return done(null, newUser);
                 })
                 .catch(err =>
                   console.log("Error in creating Google User :", err)
@@ -105,32 +95,6 @@ module.exports = {
     );
   },
 
-  // passportLinkedIn: function(passport) {
-  //   passport.use(
-  //     new LinkedInStrategy(
-  //       {
-  //         clientID: keys.linkedinClientID,
-  //         clientSecret: keys.linkedinClientSecret,
-  //         callbackURL: "http://localhost:8080/auth/linkedin/callback",
-  //         scope: ["r_liteprofile"],
-  //         state: true,
-  //         passReqToCallback: true
-  //       },
-  //       function(request, accessToken, refreshToken, profile, done) {
-  //         process.nextTick(function() {
-  // console.log("request", request);
-  // console.log("AT", accessToken);
-  // console.log("RT", refreshToken);
-  // console.log(
-  //             "linkedin profile=======================================================================",
-  //             profile
-  //           );
-  //           return done(null, profile);
-  //         });
-  //       }
-  //     )
-  //   );
-  // },
 
   passportGithub: function(passport) {
     passport.use(
@@ -142,11 +106,6 @@ module.exports = {
           scope: ["user:email"]
         },
         function(request, accessToken, refreshToken, profile, done) {
-          // console.log(
-          //   "=========================================GITHUB================================",
-          //   profile
-          // );
-
           // find or create a new user
 
           let queryObj =
@@ -162,7 +121,7 @@ module.exports = {
             if (currentUser) {
               //if existing user do nothing
               // console.log("existing User", currentUser);
-              done(null, currentUser);
+              return done(null, currentUser);
             } else {
               // create new User Object and its profile
 
@@ -230,7 +189,7 @@ module.exports = {
                         console.log("Error in Creating Github Profile : ", err)
                       );
                   }
-                  done(null, newUser);
+                  return done(null, newUser);
                 })
                 .catch(err =>
                   console.log("Error in creating Github User: ", err)
@@ -245,13 +204,14 @@ module.exports = {
   passportJwt: function(passport) {
     passport.use(
       new JwtStrategy(opts, (jwt_payload, done) => {
-        User.findById(jwt_payload.id).then(user => {
-          if (user) {
-            return done(null, user);
-          }
-          return done(null, false);
-        })
-        .catch(err => console.log("Error in creating devLookup user",err));
+        User.findById(jwt_payload.id)
+          .then(user => {
+            if (user) {
+              return done(null, user);
+            }
+            return done(null, false);
+          })
+          .catch(err => console.log("Error in creating devLookup user", err));
       })
     );
   }

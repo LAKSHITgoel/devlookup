@@ -14,7 +14,7 @@ const User = require("../../models/User");
 
 router.get(
   "/",
-  passport.authenticate("google",{scope:['profile','email']}),
+  passport.authenticate("google",{ session: false , scope:['profile','email']}),
   (req, res) => {
     // res.send("user");
     // res.json(JSON.parse(req.user));
@@ -24,10 +24,19 @@ router.get(
 router.get(
   "/callback",
   passport.authenticate("google", {
-    successRedirect: "/",
-    failureRedirect: "/login"
+    // successRedirect: "/",
+    // failureRedirect: "/login",
+    session : false
   }),
-  (req, res) => {}
+  (req, res) => {
+    if(req) {
+      console.log("user authnticated",req.user.name);
+      res.redirect("/")
+    } else {
+      console.log("Unauthorized User")
+      res.redirect("/login")
+    }
+  }
 );
 
 module.exports = router;

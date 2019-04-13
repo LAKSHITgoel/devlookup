@@ -73,7 +73,7 @@ class MyCropper extends Component {
     const base64str = img1.data;
     const imgExt = img1.ext;
     const file = Compress.convertBase64ToFile(base64str, imgExt);
-    let uploadConfig = await axios.get(`api/profile/dp?filetype=${ext}`);
+    let uploadConfig = await axios.get(`api/services/avatar?filetype=${ext}`);
 
     // for cloning and deleting auth header from axios config
     // ========================================
