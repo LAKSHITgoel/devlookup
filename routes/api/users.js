@@ -41,6 +41,7 @@ router.post("/register", (req, res) => {
       });
 
       const newUser = new User({
+        providername:"devlookup",
         name: req.body.name,
         email: req.body.email,
         avatar,
@@ -108,6 +109,31 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+// @route POST api/user/avatar
+// @desc ties the uploaded profile image URL to the databes object of user
+// @access PRIVATE
+router.post(
+  "/avatar",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById(req.user.id)
+      .then(userObj => {
+        if (userObj) {
+          //Update
+          User.findByIdAndUpdate(
+            req.user.id,
+            { avatar: req.body.imageURL },
+            { new: true }
+          )
+            .then(user => res.json({ avatar: user.avatar }))
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => res.json({ error: err }));
+  }
+);
+
 
 // @route   GET api/users/current
 // @desc    Return current user

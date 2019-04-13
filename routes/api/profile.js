@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 // const mongoose = require("mongoose");
 const passport = require("passport");
-const s3 = require("../services/upload");
-const keys = require("../../config/keys");
+// const s3 = require("../services/upload");
+// const keys = require("../../config/keys");
 // Load Validation
 const validateProfileInput = require("../../validation/profile");
 const validateExperienceInput = require("../../validation/experience");
@@ -167,53 +167,6 @@ router.post(
   }
 );
 
-// @route POST api/profile/update-profile-image
-// @desc ties the uploaded profile image URL to the databes object of user
-// @access PRIVATE
-router.post(
-  "/update-profile-image",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    User.findById(req.user.id)
-      .then(userObj => {
-        if (userObj) {
-          //Update
-          User.findByIdAndUpdate(
-            req.user.id,
-            { avatar: req.body.imageURL },
-            { new: true }
-          )
-            .then(user => res.json({ avatar: user.avatar }))
-            .catch(err => console.log(err));
-        }
-      })
-      .catch(err => res.json({ error: err }));
-  }
-);
-
-// @route POST api/profile/dp
-// @desc Return a S3 bucket signed URL to the client
-// @access Private
-router.get(
-  "/dp?:filetype",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    let uuid = Date.now();
-
-    const key = `public/${req.user.id}/profile-pic/${uuid}.${
-      req.query.filetype
-    }`;
-    s3.getSignedUrl(
-      "putObject",
-      {
-        Bucket: "dev-buck-102",
-        ContentType: `image/${req.query.filetype}`,
-        Key: key
-      },
-      (err, url) => res.send({ key, url, baseURL: keys.s3ProfilePicBaseURL })
-    );
-  }
-);
 
 // @route   POST api/profile/experience
 // @desc    Add experience to profile
