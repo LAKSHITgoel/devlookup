@@ -1,5 +1,5 @@
 {
-  "name": "devconnector",
+  "name": "devLookup",
   "version": "1.0.0",
   "description": "Social network for developers",
   "main": "server.js",
@@ -26,7 +26,7 @@
     "express-session": "^1.15.6",
     "gravatar": "^1.6.0",
     "jsonwebtoken": "^8.2.0",
-    "mongoose": "^5.0.12",
+    "mongoose": "^4.11.1",
     "passport": "^0.4.0",
     "passport-github2": "^0.1.11",
     "passport-google-oauth2": "^0.2.0",

@@ -17,6 +17,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // app.set("view engine", ejs);
 
+// Passport Config
+require("./config/passport")(passport);
+// require("./routes/services/caching");
+
 // DB Config
 const db = require("./config/keys").mongoURI;
 
