@@ -71,12 +71,12 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark primary-color">
+      <nav className="navbar navbar-expand-lg navbar-dark blue">
         <div className="container">
           <Link className="navbar-brand" to="/">
             {"< devLookup />"}
           </Link>
-          <MDBNavbarToggler onClick={this.toggleCollapse} left />
+          <MDBNavbarToggler onClick={this.toggleCollapse} />
           <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">

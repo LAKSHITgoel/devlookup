@@ -31,7 +31,20 @@ router.get(
   (req, res) => {
     if(req) {
       console.log("user authnticated",req.user.name);
-      res.redirect("/")
+      // Create JWT Payload
+      const payload = {
+        id: req.user.id,
+        name: req.user.name,
+        avatar: req.user.avatar
+      }; 
+      jwt.sign(
+        payload,
+        keys.secretOrKey,
+        { expiresIn: Number(7 * 24 * 60 * 60 * 1000) },
+        (err, token) => {
+          res.render("callback", { token: "Bearer " + token });
+        }
+      );
     } else {
       console.log("Unauthorized User")
       res.redirect("/login")

@@ -3,6 +3,13 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.custom-form{
+  background-color: rgba(255, 255, 255, 0.267);
+  padding: 50px;
+  color: rgb(255, 255, 255);
+  border:none;
+  border-radius: 2px;
+}
 .rounded-circle {
   object-fit: cover;
   max-width: 200px;

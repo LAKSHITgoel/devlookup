@@ -121,7 +121,7 @@ const User = require("../../models/User");
 //  auth/github
 router.get(
   "/",
-  passport.authenticate("github",{session:false}),
+  passport.authenticate("github", { session: false }),
   (req, res) => {
     res.send("path:/auth/github");
   }
@@ -131,17 +131,28 @@ router.get(
 router.get(
   "/callback",
   passport.authenticate("github", {
-    // successRedirect: "/",
-    // failureRedirect: "/login",
-    session :false
+    session: false
   }),
   (req, res) => {
-    if(req.user) {
-      console.log("user authnticated",req.user.name);
-      res.redirect("/")
+    if (req.user) {
+      console.log("user authnticated", req.user.name);
+      // Create JWT Payload
+      const payload = {
+        id: req.user.id,
+        name: req.user.name,
+        avatar: req.user.avatar
+      }; 
+      jwt.sign(
+        payload,
+        keys.secretOrKey,
+        { expiresIn: Number(7 * 24 * 60 * 60 * 1000) },
+        (err, token) => {
+          res.render("callback", { token: "Bearer " + token });
+        }
+      );
     } else {
-      console.log("Unauthorized User")
-      res.redirect("/login")
+      console.log("Unauthorized User");
+      res.redirect("/login");
     }
   }
 );
