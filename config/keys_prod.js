@@ -5,7 +5,7 @@ module.exports = {
   s3ID: "AKIAROSLBJXL237U6QDL",
   seKey: "/tRtluoo1Gp9EbExyqNT/R25C9WJx7lkb+aVAErQ",
   s3ProfilePicBaseURL: "https://s3.amazonaws.com/dev-buck-102/",
-  githubClientID: "ac923f7cd4795c9a43bb",
+  githubClientID: "65e8d51c02a8fedb6fae",
   githubClientSecret: "b56ac33f20f16ee4397a84bf00da8acfbd7aa37c",
   linkedinClientID: "81pn4u1dj3v7y3",
   linkedinClientSecret: "Pqe5WOwVqLNk4Vsy",

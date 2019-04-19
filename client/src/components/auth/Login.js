@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
-import TextFieldGroup from "../common/TextFieldGroup";
+import TextFieldGroup2 from "../common/TextFieldGroup2";
 
 class Login extends Component {
   constructor() {
@@ -55,13 +56,21 @@ class Login extends Component {
           <br />
           <div className="container">
             <div className="row">
-              <div className="col-xl-4 col-lg-4 col-md-6  col-sm-8 col-xs-8 col-10 m-auto">
-                <h1 className="display-4 text-center">Log In</h1>
-                <p className="lead text-center">
+              <div className="custom-form card col-xl-4 col-lg-5 col-md-6  col-sm-8 col-xs-8 col-10 m-auto">
+                <div
+                  className="card card-header aqua-gradient"
+                  style={{ border: "none", marginTop: "-75px" }}
+                >
+                  <h1 className="text-center text-white ">Log In</h1>
+                </div>
+                <p
+                  className="text-center card-text"
+                  style={{ marginTop: "50px" }}
+                >
                   Sign in to your devLookup account
                 </p>
-                <form onSubmit={this.onSubmit}>
-                  <TextFieldGroup
+                <form onSubmit={this.onSubmit} autoComplete={false}>
+                  <TextFieldGroup2
                     placeholder="Email Address"
                     name="email"
                     type="email"
@@ -70,7 +79,7 @@ class Login extends Component {
                     error={errors.email}
                   />
 
-                  <TextFieldGroup
+                  <TextFieldGroup2
                     placeholder="Password"
                     name="password"
                     type="password"
@@ -80,9 +89,41 @@ class Login extends Component {
                   />
                   <input
                     type="submit"
-                    className="btn btn-info btn-block mt-4"
+                    value="LOG IN"
+                    className="btn blue-gradient btn-block mt-4 mb-4"
+                    style={{ paddingTop: 10, paddingBottom: 10 }}
                   />
                 </form>
+                <hr
+                  style={{
+                    backgroundColor: "#fff",
+                    marginLeft: 20,
+                    marginRight: 20
+                  }}
+                />
+                <p className="card-text text-center small">Or login with</p>
+                <div className="icon-container">
+                  <a
+                    href="http://localhost:8080/auth/github"
+                    title="Github"
+                    className="github-icon-link"
+                  >
+                    <div className="github icon" />
+                  </a>
+                  <a
+                    href="http://localhost:8080/auth/google"
+                    titlt="Google"
+                    className="google-icon-link"
+                  >
+                    <div className="google icon" />
+                  </a>
+                </div>
+                <br />
+                <p className="small text-center" style={{ marginBottom: -40 }}>
+                  <Link className="text-white" to="/register">
+                    Create an account
+                  </Link>
+                </p>
               </div>
             </div>
           </div>

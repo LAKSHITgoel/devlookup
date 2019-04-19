@@ -147,7 +147,9 @@ class CreateProfile extends Component {
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>
                 <br />
-                <Avatar />
+                <div style={{display:"flex",justifyContent:"center"}}>
+                  <Avatar />
+                </div>
                 <br />
                 <TextFieldGroup
                   placeholder="* Profile Handle"

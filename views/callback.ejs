@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>devLookup</title>
+    <style>
+        .loader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border: 5px solid;
+            border-radius: 50%;
+            border-color: #BF00FF;
+            border-left-color: #fff;
+            animation: spin 2s linear infinite;
+
+        }
+
+        .loaderin {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            padding: 5px;
+            border: 5px solid;
+            border-radius: 50%;
+            border-color: #fff;
+            border-right-color: #ff00a5;
+            border-bottom-color: #ff00a5;
+
+            animation: spin 1.5s linear infinite;
+        }
+
+        .loaderin2 {
+            width: 10px;
+            height: 10px;
+            padding: 1px;
+            border: 5px solid;
+            border-radius: 50%;
+            border-color: #fff;
+            border-left-color: #FFD900;
+            animation: spin 1s linear infinite;
+        }
+
+        .wrapper {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="loader">
+            <div class="loaderin">
+                <div class="loaderin2">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <% if(token){ %>
+    <script rel="javascript">
+        (function () {
+            var token = "<%= token %>"
+            window.localStorage.setItem('jwtToken', token)
+            setInterval(function () {
+                window.location.href = "<%= redirectURL %>"
+            }, 1000)
+        })()
+    </script>
+    <% } %>
+
+</body>
+
+</html>

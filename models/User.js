@@ -9,9 +9,6 @@ const UserSchema = new Schema({
   providerId: {
     type: String
   },
-  mobile: {
-    type: String
-  },
   name: {
     type: String,
     required: true

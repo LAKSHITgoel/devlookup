@@ -10,26 +10,22 @@ const github = require("./routes/services/auth.github");
 const google = require("./routes/services/auth.google");
 const app = express();
 const upload = require("./routes/services/upload");
-// const ejs = require("ejs");
+const path = require("path");
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.set("view engine", ejs);
-
-// Passport Config
-require("./config/passport")(passport);
-// require("./routes/services/caching");
 
 // DB Config
 const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
-mongoose
-  .connect(db)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
-
+mongoose.connect(db, { useNewUrlParser: true });
+let mongo = mongoose.connection;
+mongo.on('error', console.error.bind(console, 'connection error:'));
+mongo.once('open',function(){
+  console.log("We are connected")
+})
 
 // Passport middleware
 app.use(passport.initialize());
@@ -48,27 +44,16 @@ app.use("/api/services", upload);
 app.use("/auth/github", github);
 app.use("/auth/google", google);
 
+app.set("view engine", "ejs");
 // Server static assets if in production
-if (process.env.NODE_ENV === "production") {
-  // Set static folder
-}
-// app.use(express.static("client/build"));
-app.get("/", (req, res) => {
-  res.send("api is working");
-});
+// if (process.env.NODE_ENV === "production") {
+//   // Set static folder
+// }
 
-app.get("/auth/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
+app.use(express.static(path.resolve(__dirname, "client", "build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
-
-app.get("/login", (req, res) => {
-  res.send("fuck");
-});
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-// });
 
 const port = process.env.PORT || 8080;
 
