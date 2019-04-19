@@ -14,7 +14,10 @@ const User = require("../../models/User");
 
 router.get(
   "/",
-  passport.authenticate("google",{ session: false , scope:['profile','email']}),
+  passport.authenticate("google", {
+    session: false,
+    scope: ["profile", "email"]
+  }),
   (req, res) => {
     // res.send("user");
     // res.json(JSON.parse(req.user));
@@ -26,28 +29,32 @@ router.get(
   passport.authenticate("google", {
     // successRedirect: "/",
     // failureRedirect: "/login",
-    session : false
+    session: false
   }),
   (req, res) => {
-    if(req) {
-      console.log("user authnticated",req.user.name);
+    if (req.user) {
+      // console.log("user",req.user)
+      console.log("user authnticated", req.user._doc.name);
       // Create JWT Payload
       const payload = {
-        id: req.user.id,
-        name: req.user.name,
-        avatar: req.user.avatar
-      }; 
+        id: req.user._doc._id,
+        name: req.user._doc.name,
+        avatar: req.user._doc.avatar
+      };
       jwt.sign(
         payload,
         keys.secretOrKey,
         { expiresIn: Number(7 * 24 * 60 * 60 * 1000) },
         (err, token) => {
-          res.render("callback", { token: "Bearer " + token });
+          res.render("callback", {
+            token: "Bearer " + token,
+            redirectURL: req.user.redirectURL
+          });
         }
       );
     } else {
-      console.log("Unauthorized User")
-      res.redirect("/login")
+      console.log("Unauthorized User");
+      res.redirect("/login");
     }
   }
 );

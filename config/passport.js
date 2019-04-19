@@ -5,12 +5,11 @@ const ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 const keys = require("../config/keys");
- passport = require("passport");
+passport = require("passport");
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
-
 
 module.exports = {
   passportGoogle: function(passport) {
@@ -30,7 +29,7 @@ module.exports = {
           }).then(currentUser => {
             if (currentUser) {
               // console.log("user already exists", currentUser);
-              return done(null, currentUser);
+              return done(null, { ...currentUser, redirectURL: "/dashboard" });
             } else {
               let newUser = {};
               let newProfile = {};
@@ -83,7 +82,11 @@ module.exports = {
                         console.log("Error in creatng Google profile :", err)
                       );
                   }
-                  return done(null, newUser);
+
+                  return done(null, {
+                    ...newUser,
+                    redirectURL: "/create-profile"
+                  });
                 })
                 .catch(err =>
                   console.log("Error in creating Google User :", err)
@@ -94,7 +97,6 @@ module.exports = {
       )
     );
   },
-
 
   passportGithub: function(passport) {
     passport.use(
@@ -117,85 +119,96 @@ module.exports = {
                 }
               : { providername: "github", providerId: profile.id };
 
-          User.findOne(queryObj).then(currentUser => {
-            if (currentUser) {
-              //if existing user do nothing
-              // console.log("existing User", currentUser);
-              return done(null, currentUser);
-            } else {
-              // create new User Object and its profile
+          User.findOne(queryObj)
+            .then(currentUser => {
+              if (currentUser) {
+                //if existing user do nothing
+                // console.log("existing User", currentUser);
+                return done(null, {
+                  ...currentUser,
+                  redirectURL: "/dashboard"
+                });
+              } else {
+                // create new User Object and its profile
 
-              let newUser = {};
-              let newProfile = {};
+                let newUser = {};
+                let newProfile = {};
 
-              newUser.providername = "github";
-              newUser.providerId = profile.id;
-              newUser.name = profile.displayName;
-              newUser.avatar =
-                profile._json.avatar_url !== undefined
-                  ? profile._json.avatar_url
-                  : "";
-              newUser.email =
-                profile.emails[0].value !== undefined
-                  ? profile.emails[0].value
-                  : "";
+                newUser.providername = "github";
+                newUser.providerId = profile.id;
+                newUser.name = profile.displayName;
+                newUser.avatar =
+                  profile._json.avatar_url !== undefined
+                    ? profile._json.avatar_url
+                    : "";
+                newUser.email =
+                  profile.emails[0].value !== undefined
+                    ? profile.emails[0].value
+                    : "";
 
-              newProfile.handle = profile.username;
-              newProfile.status = "";
-              newProfile.company =
-                profile._json.company !== undefined
-                  ? profile._json.company
-                  : "";
-              newProfile.website =
-                profile._json.blog !== undefined ? profile._json.blog : "";
-              newProfile.location =
-                profile._json.location !== undefined
-                  ? profile._json.location
-                  : "";
-              newProfile.bio =
-                profile._json.bio !== undefined ? profile._json.bio : "";
-              newProfile.githubusername = profile.username;
-              newProfile.experience = [
-                {
-                  title: "",
-                  company: "",
-                  location: "",
-                  from: "",
-                  to: "",
-                  description: ""
-                }
-              ];
-              newProfile.education = [
-                {
-                  school: "",
-                  degree: "",
-                  fieldoofstudy: "",
-                  from: "",
-                  to: "",
-                  description: ""
-                }
-              ];
-
-              new User(newUser)
-                .save()
-                .then(newUser => {
-                  console.log("newUser github Created");
-                  if (newUser.id) {
-                    newProfile.user = newUser.id;
-                    new Profile(newProfile)
-                      .save()
-                      .then(np => console.log("newProfile Github Created"))
-                      .catch(err =>
-                        console.log("Error in Creating Github Profile : ", err)
-                      );
+                newProfile.handle = profile.username;
+                newProfile.status = "";
+                newProfile.company =
+                  profile._json.company !== undefined
+                    ? profile._json.company
+                    : "";
+                newProfile.website =
+                  profile._json.blog !== undefined ? profile._json.blog : "";
+                newProfile.location =
+                  profile._json.location !== undefined
+                    ? profile._json.location
+                    : "";
+                newProfile.bio =
+                  profile._json.bio !== undefined ? profile._json.bio : "";
+                newProfile.githubusername = profile.username;
+                newProfile.experience = [
+                  {
+                    title: "",
+                    company: "",
+                    location: "",
+                    from: "",
+                    to: "",
+                    description: ""
                   }
-                  return done(null, newUser);
-                })
-                .catch(err =>
-                  console.log("Error in creating Github User: ", err)
-                );
-            }
-          });
+                ];
+                newProfile.education = [
+                  {
+                    school: "",
+                    degree: "",
+                    fieldoofstudy: "",
+                    from: "",
+                    to: "",
+                    description: ""
+                  }
+                ];
+
+                new User(newUser)
+                  .save()
+                  .then(newUser => {
+                    console.log("newUser github Created");
+                    if (newUser.id) {
+                      newProfile.user = newUser.id;
+                      new Profile(newProfile)
+                        .save()
+                        .then(np => console.log("newProfile Github Created"))
+                        .catch(err =>
+                          console.log(
+                            "Error in Creating Github Profile : ",
+                            err
+                          )
+                        );
+                    }
+                    return done(null, {
+                      ...newUser,
+                      redirectURL: "/create-profile"
+                    });
+                  })
+                  .catch(err =>
+                    console.log("Error in creating Github User: ", err)
+                  );
+              }
+            })
+            .catch(err => console.error("user not found"));
         }
       )
     );

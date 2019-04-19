@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import TextFieldGroup2 from "../common/TextFieldGroup2";
@@ -56,7 +56,7 @@ class Register extends Component {
           <br />
           <div className="container">
             <div className="row">
-              <div className="custom-form col-xl-4 col-lg-4 col-md-6  col-sm-8 col-xs-8 col-10 m-auto">
+              <div className="custom-form col-xl-4 col-lg-5 col-md-6  col-sm-8 col-xs-8 col-10 m-auto">
                 <div
                   className="card card-header purple-gradient"
                   style={{ border: "none", marginTop: "-75px" }}
@@ -108,28 +108,36 @@ class Register extends Component {
                     style={{ paddingTop: 10, paddingBottom: 10 }}
                   />
                 </form>
-                <hr style={{ backgroundColor: "#fff" }} />
+                <hr
+                  style={{
+                    backgroundColor: "#fff",
+                    marginLeft: 20,
+                    marginRight: 20
+                  }}
+                />
                 <p className="card-text text-center small">Or register with</p>
-                <div className="row">
-                  <div className="col-6">
-                    <a
-                      href="/auth/github"
-                      className="btn"
-                      // style={{ color: "#fff", backgroundColor: "#000" }}
-                    >
-                      <i className="fab fa-github" />
-                    </a>
-                  </div>
-                  <div className="col-6">
-                    <a
-                      href="/auth/google"
-                      className="btn"
-                      style={{ color: "#fff", backgroundColor: "#ef4321" }}
-                    >
-                      
-                    </a>
-                  </div>
+                <div className="icon-container">
+                  <a
+                    href="/auth/github"
+                    title="Github"
+                    className="github-icon-link"
+                  >
+                    <div className="github icon" />
+                  </a>
+                  <a
+                    href="/auth/google"
+                    title="Google"
+                    className="google-icon-link"
+                  >
+                    <div className="google icon" />
+                  </a>
                 </div>
+                <br />
+                <p className="small text-center" style={{ marginBottom: -40 }}>
+                  <Link className="text-white" to="/login">
+                    I already have an account
+                  </Link>
+                </p>
               </div>
             </div>
           </div>

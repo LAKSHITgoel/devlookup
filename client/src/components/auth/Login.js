@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import TextFieldGroup2 from "../common/TextFieldGroup2";
@@ -55,17 +56,20 @@ class Login extends Component {
           <br />
           <div className="container">
             <div className="row">
-              <div className="custom-form card col-xl-4 col-lg-4 col-md-6  col-sm-8 col-xs-8 col-10 m-auto">
+              <div className="custom-form card col-xl-4 col-lg-5 col-md-6  col-sm-8 col-xs-8 col-10 m-auto">
                 <div
                   className="card card-header aqua-gradient"
-                  style={{ border: "none",marginTop:"-75px" }}
+                  style={{ border: "none", marginTop: "-75px" }}
                 >
                   <h1 className="text-center text-white ">Log In</h1>
                 </div>
-                <p className="text-center card-text" style={{marginTop:"50px"}}>
+                <p
+                  className="text-center card-text"
+                  style={{ marginTop: "50px" }}
+                >
                   Sign in to your devLookup account
                 </p>
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit} autoComplete={false}>
                   <TextFieldGroup2
                     placeholder="Email Address"
                     name="email"
@@ -87,31 +91,39 @@ class Login extends Component {
                     type="submit"
                     value="LOG IN"
                     className="btn blue-gradient btn-block mt-4 mb-4"
-                    style={{paddingTop:10,paddingBottom:10}}
+                    style={{ paddingTop: 10, paddingBottom: 10 }}
                   />
                 </form>
-                <hr style={{backgroundColor:"#fff"}} />
-                <p className="card-text text-center small" >Or login with</p>
-                <div className="row">
-                  <div className="col-6">
-                    <a
-                      href="http://localhost:8080/auth/github"
-                      className="btn"
-                      style={{ color: "#fff", backgroundColor: "#000" }}
-                    >
-                      Github
-                    </a>
-                  </div>
-                  <div className="col-6">
-                    <a
-                      href="http://localhost:8080/auth/google"
-                      className="btn"
-                      style={{ color: "#fff", backgroundColor: "#ef4321" }}
-                    >
-                      Google
-                    </a>
-                  </div>
+                <hr
+                  style={{
+                    backgroundColor: "#fff",
+                    marginLeft: 20,
+                    marginRight: 20
+                  }}
+                />
+                <p className="card-text text-center small">Or login with</p>
+                <div className="icon-container">
+                  <a
+                    href="http://localhost:8080/auth/github"
+                    title="Github"
+                    className="github-icon-link"
+                  >
+                    <div className="github icon" />
+                  </a>
+                  <a
+                    href="http://localhost:8080/auth/google"
+                    titlt="Google"
+                    className="google-icon-link"
+                  >
+                    <div className="google icon" />
+                  </a>
                 </div>
+                <br />
+                <p className="small text-center" style={{ marginBottom: -40 }}>
+                  <Link className="text-white" to="/register">
+                    Create an account
+                  </Link>
+                </p>
               </div>
             </div>
           </div>

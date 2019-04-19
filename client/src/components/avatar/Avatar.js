@@ -48,6 +48,8 @@ class Avatar extends React.Component {
             src={
               this.state.dataURL == null
                 ? this.props.auth.user.avatar
+                  ? this.props.auth.user.avatar
+                  : "http://www.gravatar.com/avatar/74ae1741bff6a79fbda9a9dad6cf4ef4?s=200&r=pg&d=mm"
                 : this.state.dataURL
             }
             alt=""

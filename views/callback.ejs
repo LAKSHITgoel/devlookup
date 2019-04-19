@@ -93,7 +93,7 @@
             var token = "<%= token %>"
             window.localStorage.setItem('jwtToken', token)
             setInterval(function () {
-                window.location.href = "/dashboard"
+                window.location.href = "<%= redirectURL %>"
             }, 1000)
         })()
     </script>
