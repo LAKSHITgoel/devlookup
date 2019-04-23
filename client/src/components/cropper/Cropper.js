@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Cropper from "react-cropper";
-import { Button } from "reactstrap";
+import { MDBBtn } from "mdbreact";
 import "./cropper.css";
 import "./style.css";
 import axios from "axios";
@@ -119,10 +119,10 @@ class MyCropper extends Component {
         <br />
         <div className="modal-footer">
           {this.state.progress != 0 && <Toast />}
-          <Button onClick={this.onSave} color="primary">
+          <MDBBtn outline rounded onClick={this.onSave} color="primary">
             Upload
-          </Button>
-          <Button onClick={this.props.toggleModal}>Cancel</Button>
+          </MDBBtn>
+          <MDBBtn outline rounded onClick={this.props.toggleModal}>Cancel</MDBBtn>
         </div>
       </div>
     );

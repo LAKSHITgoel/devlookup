@@ -61,7 +61,7 @@ class Register extends Component {
                   className="card card-header purple-gradient"
                   style={{ border: "none", marginTop: "-75px" }}
                 >
-                  <h1 className="text-white text-center">Sign Up</h1>
+                  <h1 className="text-white text-center signup-text">Sign Up</h1>
                 </div>
                 <p
                   className="card-text text-center"
@@ -103,8 +103,8 @@ class Register extends Component {
                   />
                   <input
                     type="submit"
-                    value="REGISTER"
-                    className="btn blue-gradient btn-block mt-4 mb-4"
+                    value="Let's do this"
+                    className="btn blue-gradient btn-rounded btn-block mt-4 mb-4"
                     style={{ paddingTop: 10, paddingBottom: 10 }}
                   />
                 </form>

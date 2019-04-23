@@ -56,12 +56,12 @@ class Login extends Component {
           <br />
           <div className="container">
             <div className="row">
-              <div className="custom-form card col-xl-4 col-lg-5 col-md-6  col-sm-8 col-xs-8 col-10 m-auto">
+              <div className="custom-form col-xl-4 col-lg-5 col-md-6  col-sm-8 col-xs-8 col-10 m-auto">
                 <div
                   className="card card-header aqua-gradient"
                   style={{ border: "none", marginTop: "-75px" }}
                 >
-                  <h1 className="text-center text-white ">Log In</h1>
+                  <h1 className="text-center text-white login-text">Log In</h1>
                 </div>
                 <p
                   className="text-center card-text"
@@ -89,8 +89,8 @@ class Login extends Component {
                   />
                   <input
                     type="submit"
-                    value="LOG IN"
-                    className="btn blue-gradient btn-block mt-4 mb-4"
+                    value="Let me In"
+                    className="btn btn-rounded blue-gradient btn-block mt-4 mb-4"
                     style={{ paddingTop: 10, paddingBottom: 10 }}
                   />
                 </form>

@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import setAuthToken from "./utils/setAuthToken";
-import { clearCurrentProfile } from "./actions/profileActions";
-import { setCurrentUser, logoutUser } from "./actions/authActions";
-
 import { Provider } from "react-redux";
 import store from "./store";
-
 import PrivateRoute from "./components/common/PrivateRoute";
-
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
@@ -25,7 +18,7 @@ import Profile from "./components/profile/Profile";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import NotFound from "./components/not-found/NotFound";
-import {ifLogedin} from "./utils/ifLogedin";
+import { ifLogedin } from "./utils/ifLogedin";
 import "./App.css";
 
 ifLogedin();

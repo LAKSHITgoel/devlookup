@@ -1,29 +1,29 @@
 import React, { Component } from "react";
-import { Modal, ModalBody, ModalHeader, Row, Col } from "reactstrap";
 import MyCropper from "../cropper/Cropper";
+import { MDBModal, MDBModalBody, MDBModalHeader } from "mdbreact";
 
 export default class MyModal extends Component {
   handleDataURL = dataURL => this.setState({ dataURL });
   render() {
     return (
-      <Modal
+      <MDBModal
         isOpen={this.props.showCropModel}
         size={"lg"}
         toggle={this.props.toggleModal}
       >
-        <ModalHeader>{this.props.header}</ModalHeader>
-        <ModalBody>
-          <Row>
-            <Col>
+        <MDBModalHeader>{this.props.header}</MDBModalHeader>
+        <MDBModalBody>
+          <div className="row">
+            <div className="col-12">
               <MyCropper
                 toggleModal={this.props.toggleModal}
                 handleDataURL={this.handleDataURL}
                 imgURL={this.props.src}
               />
-            </Col>
-          </Row>
-        </ModalBody>
-      </Modal>
+            </div>
+          </div>
+        </MDBModalBody>
+      </MDBModal>
     );
   }
 }

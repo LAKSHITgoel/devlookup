@@ -1,9 +1,6 @@
 import React from "react";
 import "./avatar.css";
 import { connect } from "react-redux";
-// import axios from "axios";
-// import { updateProfileImage } from "../../actions/profileActions";
-// import { LoaderBar } from "../image-loader";
 import MyModal from "../model/Model";
 
 class Avatar extends React.Component {
@@ -53,14 +50,14 @@ class Avatar extends React.Component {
                 : this.state.dataURL
             }
             alt=""
-            onMouseEnter={this.show}
+            // onMouseEnter={this.show}
           />
-          {this.state.showDesktop && (
+         
             <div className="rounded-circle">
               <label
                 htmlFor="upload-image"
                 className="upload-image"
-                onMouseLeave={this.hide}
+                // onMouseLeave={this.hide}
               >
                 <i className="material-icons addImg-icon">&#xe439;</i>
               </label>
@@ -73,10 +70,6 @@ class Avatar extends React.Component {
                 onChange={this.handleFileUpload}
               />
             </div>
-          )}
-          {/* {this.state.progress != 0 && (
-            <LoaderBar progress={this.state.progress} />
-          )} */}
         </div>
         <div className="save-container ml-5">
           {this.state.progress == 100 && (

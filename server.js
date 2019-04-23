@@ -6,6 +6,7 @@ const passportConfig = require("./config/passport");
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
+const blog = require("./routes/api/blog");
 const github = require("./routes/services/auth.github");
 const google = require("./routes/services/auth.google");
 const app = express();
@@ -14,7 +15,7 @@ const path = require("path");
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
 
 // DB Config
 const db = require("./config/keys").mongoURI;
@@ -41,6 +42,8 @@ app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);
 app.use("/api/services", upload);
+app.use("/api/blog",blog);
+//Oauth routes
 app.use("/auth/github", github);
 app.use("/auth/google", google);
 

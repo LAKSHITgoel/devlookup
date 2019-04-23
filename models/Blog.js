@@ -7,11 +7,27 @@ const BlogSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
+  author: {
+    type: String,
+    require: true
+  },
+  avatar: {
+    type: String,
+    required: true
+  },
   title: {
-    type: String
+    type: String,
+    required: true
   },
   parts: [
     {
+      index: {
+        type: Number,
+        required: true
+      },
+      subtitle: {
+        type: String
+      },
       text: {
         type: String
       },
@@ -49,7 +65,7 @@ const BlogSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  share: {
+  shares: {
     type: Number
   },
   comments: [
@@ -57,6 +73,14 @@ const BlogSchema = new Schema({
       user: {
         type: Schema.Types.ObjectId,
         ref: "users"
+      },
+      avatar: {
+        type: String,
+        required: true
+      },
+      author: {
+        type: String,
+        required: true
       },
       text: {
         type: String,
@@ -72,8 +96,17 @@ const BlogSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: "refs"
           },
+          avatar: {
+            type: String,
+            required: true
+          },
+          author: {
+            type: String,
+            required: true
+          },
           text: {
-            type: String
+            type: String,
+            required: true
           },
           createdat: {
             type: Date,

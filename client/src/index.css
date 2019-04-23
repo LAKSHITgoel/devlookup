@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Poiret One', cursive;
 }
 .custom-form {
   background-color: rgba(255, 255, 255, 0.267);
@@ -52,5 +52,31 @@ body {
 }
 .form-control{
   border:none;
-  border-radius: 2px;
+  border-radius: 20px;
+}
+h1,h2,h3,h4{
+  font-family: 'Amatic SC', cursive;
+}
+nav{
+  font-family: 'Julius Sans One', sans-serif;
+  font-weight: 700;
+}
+.btn{
+  font-weight: 700;
+}
+
+.card,th,td,h5{
+  font-family: 'Roboto',sans-serif;
+}
+@media only screen and (max-width: 480px) {
+  .modal-dialog{
+    position: relative;
+    top:0;
+    width:100%;
+    height: 100vh;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:0;
+  }
 }

@@ -1,7 +1,4 @@
-.avatar {
-  display: flex;
-  flex-direction: row;
-}
+
 .upload-container {
   position: relative;
 }
@@ -28,10 +25,13 @@
   align-items: center;
   justify-content: center;
   color: #fff;
+  clip-path: polygon(0 60%,100% 60%,100% 100%,0 100%);
+  cursor: pointer;
 }
 
 .addImg-icon {
-  font-size: 50px;
+  font-size: 30px;
+  margin-bottom:-100px;
 }
 
 .hide-upload {
