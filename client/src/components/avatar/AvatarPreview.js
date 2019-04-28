@@ -1,11 +1,10 @@
 import React from "react";
 import "./avatarpreview.css";
 
-const AvatarPreview = ({ src }) => {
+const AvatarPreview = ({ src,size }) => {
   return (
-    <div className="avatar-preview">
+    size ? <img style={{maxWidth:25}} src={src} alt="" className="avatar-preview" /> :
       <img src={src} alt="" className="avatar-preview" />
-    </div>
   );
 };
 export default AvatarPreview;

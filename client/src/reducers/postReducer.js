@@ -28,7 +28,7 @@ export default function(state = initialState, action) {
     case GET_POST:
       return {
         ...state,
-        post: action.payload,
+        posts: action.payload,
         loading: false
       };
     case ADD_POST:

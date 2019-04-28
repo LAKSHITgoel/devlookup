@@ -29,7 +29,7 @@ module.exports = {
           }).then(currentUser => {
             if (currentUser) {
               // console.log("user already exists", currentUser);
-              return done(null, { ...currentUser, redirectURL: "/dashboard" });
+              return done(null, { ...currentUser, redirectURL: "/feed" });
             } else {
               let newUser = {};
               let newProfile = {};
@@ -126,7 +126,7 @@ module.exports = {
                 // console.log("existing User", currentUser);
                 return done(null, {
                   ...currentUser,
-                  redirectURL: "/dashboard"
+                  redirectURL: "/feed"
                 });
               } else {
                 // create new User Object and its profile
@@ -136,7 +136,7 @@ module.exports = {
 
                 newUser.providername = "github";
                 newUser.providerId = profile.id;
-                newUser.name = profile.displayName;
+                newUser.name = profile.displayName ? profile.displayName : profile.username;
                 newUser.avatar =
                   profile._json.avatar_url !== undefined
                     ? profile._json.avatar_url

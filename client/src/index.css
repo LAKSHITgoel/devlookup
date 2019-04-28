@@ -29,7 +29,7 @@ body {
   left: 0;
   right: 0;
 }
-.github{
+.github {
   background-image: url("./img/github-icon.svg");
 }
 .icon {
@@ -37,46 +37,141 @@ body {
   background-repeat: no-repeat;
   height: 30px;
   background-size: cover;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
-.google{
+.google {
   background-image: url("./img/Google.svg");
 }
-.icon-container{
- display: flex;
- justify-content: space-around;
- margin:0 25% 0 25%;
+.icon-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 25% 0 25%;
 }
-.form-control{
-  border:none;
-  border-radius: 20px;
-}
-h1,h2,h3,h4{
-  font-family: 'Amatic SC', cursive;
-}
-nav{
-  font-family: 'Julius Sans One', sans-serif;
-  font-weight: 700;
-}
-.btn{
-  font-weight: 700;
+.form-control {
+  border: none;
+  border-radius: 2px;
 }
 
-.card,th,td,h5{
-  font-family: 'Roboto',sans-serif;
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-@media only screen and (max-width: 480px) {
-  .modal-dialog{
-    position: relative;
-    top:0;
-    width:100%;
-    height: 100vh;
-    bottom:0;
-    left:0;
-    right:0;
-    margin:0;
-  }
+.feed-auth-menu-options-button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  color: #b6b4b4;
+}
+.feed-auth-menu-options-button:hover {
+  color: #ddd7d7;
+}
+.news {
+  display: flex;
+  padding: 20px;
+}
+.label {
+  padding: 10px;
+}
+.brief {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 14px;
+  margin-bottom: 10px;
+}
+.date {
+  font-weight: 300;
+  font-size: 0.86rem;
+  color: #9e9e9e;
+  padding-left: 0.7rem;
+}
+.added-content {
+  padding-left: 20px;
+  margin-bottom: 0.6rem;
+  max-width: 450px;
+}
+.feed-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.comment-textarea{
+  height:32px;
+  margin:0;
+  resize: none;
+  border:none;
+  border-radius:15px;
+  width:100%;
+  padding:5px;
+  padding-left:15px;
+  padding-right:15px;
+  overflow-y: hidden;
+}
+.comment-textarea:focus{
+  border:none;
+  outline: none;
+}
+.mdb-feed{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:  center;
+}
+.col-md-12{
+  display:  flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items:  center;
+}
+.news{
+  width:100%;
+}
+.comment-toggle{
+  color:#9e9e9e;
+  border:none;
+  outline: none;
+  background-color:  rgba(249, 178, 92, 0);
+  font-size: .85rem;
+}
+.comment-toggle:focus{
+  outline :none;
+}
+button:focus{
+  outline: none;
+}
+.comment-name{
+  font-size: .85rem;
+  color:#7a7979;
+  padding:5px;
+}
+.comment-item{
+  display: flex;
+  padding:5px;
+}
+.left{
+  padding:5px;
+  align-items: center;
+}
+.right{
+  display: flex;
+  flex-direction:  column;
+}
+.comment-header{
+  display: flex;
+  padding: 5px;
+}
+.comment-form-container{
+  width:100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.delete-btn {
+  border:none;
+  outline: none;
+  background-color:  rgba(249, 178, 92, 0);
+  color:#a7a4a4;
+  font-size:0.75rem;
 }

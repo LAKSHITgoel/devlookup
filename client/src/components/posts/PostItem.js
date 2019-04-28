@@ -1,11 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import classnames from 'classnames';
-import { Link } from 'react-router-dom';
-import { deletePost, addLike, removeLike } from '../../actions/postActions';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import AvatarPreview from "../avatar/AvatarPreview";
+import { deletePost, addLike, removeLike } from "../../actions/postActions";
+import { MDBCollapse } from "mdbreact";
+import moment from "moment";
+import CommentContainer from "./CommentContainer";
+import CommentForm from "./CommentForm";
 
 class PostItem extends Component {
+  state = {
+    collapse: ""
+  };
+
   onDeleteClick(id) {
     this.props.deletePost(id);
   }
@@ -27,61 +35,99 @@ class PostItem extends Component {
     }
   }
 
+  toggleComment = collapse => {
+    this.setState(prevState => ({
+      collapse: prevState.collapse !== collapse ? collapse : ""
+    }));
+  };
+
+  checkLikeOrDislike = () => {
+    let a = this.props.post.likes.filter(
+      obj => obj.user === this.props.auth.user.id
+    );
+    if (a.length == 0) return false;
+    else return true;
+  };
+
   render() {
     const { post, auth, showActions } = this.props;
 
     return (
-      <div className="card card-body mb-3">
-        <div className="row">
-          <div className="col-md-2">
-            <a href="profile.html">
-              <img
-                className="rounded-circle d-none d-md-block"
-                src={post.avatar}
-                alt=""
-              />
-            </a>
-            <br />
-            <p className="text-center">{post.name}</p>
-          </div>
-          <div className="col-md-10">
-            <p className="lead">{post.text}</p>
-            {showActions ? (
-              <span>
-                <button
-                  onClick={this.onLikeClick.bind(this, post._id)}
-                  type="button"
-                  className="btn btn-light mr-1"
-                >
-                  <i
-                    className={classnames('fas fa-thumbs-up', {
-                      'text-info': this.findUserLike(post.likes)
-                    })}
-                  />
-                  <span className="badge badge-light">{post.likes.length}</span>
-                </button>
-                <button
-                  onClick={this.onUnlikeClick.bind(this, post._id)}
-                  type="button"
-                  className="btn btn-light mr-1"
-                >
-                  <i className="text-secondary fas fa-thumbs-down" />
-                </button>
-                <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
-                  Comments
-                </Link>
+      <div className="news">
+        <div className="label">
+          <Link to="#">
+            <AvatarPreview src={post.avatar} />
+          </Link>
+        </div>
+        <div className="excerpt">
+          <div className="brief">
+            <div className="feed-header">
+              <div className="left">
+                <Link to="#" className="name">
+                  {post.name}
+                </Link>{" "}
+                added a new post{" "}
+                <span className="date mute">
+                  {moment(post.date)
+                    .startOf("day")
+                    .fromNow()}
+                </span>
+              </div>
+              <div className="right">
                 {post.user === auth.user.id ? (
                   <button
+                    className="delete-btn"
+                    title="delete post"
                     onClick={this.onDeleteClick.bind(this, post._id)}
-                    type="button"
-                    className="btn btn-danger mr-1"
                   >
-                    <i className="fas fa-times" />
+                    <i className="fa fa-trash" />
                   </button>
                 ) : null}
-              </span>
-            ) : null}
+              </div>
+            </div>
           </div>
+          <div className="added-content">{post.text}</div>
+          <div className="feed-footer">
+            <button
+              onClick={
+                this.checkLikeOrDislike()
+                  ? this.onUnlikeClick.bind(this, post._id)
+                  : this.onLikeClick.bind(this, post._id)
+              }
+              type="button"
+              className="feed-auth-menu-options-button"
+            >
+              <i
+                className={
+                  this.checkLikeOrDislike()
+                    ? "fas fa-thumbs-up text-info"
+                    : "fas fa-thumbs-up"
+                }
+              />{" "}
+              <span className="">{post.likes.length + " Likes"}</span>
+            </button>
+            <button
+              onClick={this.onUnlikeClick.bind(this, post._id)}
+              type="button"
+              className="feed-auth-menu-options-button"
+            />
+            {post.comments.length !== 0 && (
+              <button
+                className="comment-toggle"
+                onClick={e => this.toggleComment(post._id)}
+              >
+                {this.state.collapse !== post._id
+                  ? "View Comments"
+                  : "Hide Comments"}
+              </button>
+            )}
+          </div>
+          <MDBCollapse id={post._id} isOpen={this.state.collapse}>
+            <div className="feed-comments-container">
+              <CommentContainer postId={post._id} auth={auth} comment={post.comments} />
+            </div>
+          </MDBCollapse>
+          <CommentForm postId={post._id} />
         </div>
       </div>
     );
@@ -104,6 +150,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { deletePost, addLike, removeLike })(
-  PostItem
-);
+export default connect(
+  mapStateToProps,
+  { deletePost, addLike, removeLike }
+)(PostItem);

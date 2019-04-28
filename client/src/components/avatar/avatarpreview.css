@@ -2,5 +2,6 @@
   width: 100%;
   height: auto;
   border-radius: 50%;
+  max-width:50px;
   /* padding-left: calc(50%-100px); */
 }

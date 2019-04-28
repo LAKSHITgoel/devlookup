@@ -1,8 +1,9 @@
-import jwt_decode from "jwt-decode";
 import setAuthToken from "./setAuthToken";
+import store from "../store";
+import jwt_decode from "jwt-decode";
 import { clearCurrentProfile } from "../actions/profileActions";
 import { setCurrentUser, logoutUser } from "../actions/authActions";
-import store from "../store";
+
 
 export const ifLogedin = () => {
   if (localStorage.jwtToken) {
