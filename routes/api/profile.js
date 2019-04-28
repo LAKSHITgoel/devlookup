@@ -60,15 +60,15 @@ router.get("/all", (req, res) => {
     .catch(err => res.status(404).json({ profile: "There are no profiles" }));
 });
 
-// @route   GET api/profile/handle/:handle
-// @desc    Get profile by handle
+// @route   GET api/profile/handle/:id
+// @desc    Get profile by id
 // @access  Public
 
-router.get("/handle/:handle", (req, res) => {
+router.get("/handle/:id", (req, res) => {
   const errors = {};
 
-  Profile.findOne({ handle: req.params.handle })
-    .populate("user", ["name", "avatar"])
+  Profile.findById(req.params.id)
+    .populate("user",["name","avatar"])
     .then(profile => {
       if (!profile) {
         errors.noprofile = "There is no profile for this user";
@@ -166,7 +166,6 @@ router.post(
     });
   }
 );
-
 
 // @route   POST api/profile/experience
 // @desc    Add experience to profile
