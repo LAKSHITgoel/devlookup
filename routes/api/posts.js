@@ -10,6 +10,7 @@ const Profile = require("../../models/Profile");
 
 // Validation
 const validatePostInput = require("../../validation/post");
+const validateCommentInput = require("../../validation/comment");
 
 // @route   GET api/posts/test
 // @desc    Tests post route
@@ -165,28 +166,39 @@ router.post(
   "/comment/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors, isValid } = validatePostInput(req.body);
+    const { errors, isValid } = validateCommentInput(req.body);
 
     // Check Validation
     if (!isValid) {
       // If any errors, send 400 with errors object
-      return res.status(400).json(errors);
+      return res.status(400).json({ ...errors, id: req.params.id });
     }
 
     Post.findById(req.params.id)
       .then(post => {
         const newComment = {
-          text: req.body.text,
+          text: req.body.comment,
           name: req.body.name,
           avatar: req.body.avatar,
           user: req.user.id
         };
 
         // Add to comments array
-        post.comments.unshift(newComment);
+        post.comments.push(newComment);
 
         // Save
-        post.save().then(post => res.json(post));
+        post.save().then(post => {
+          // //get all posts
+          Post.find()
+            .sort({ date: -1 })
+            .then(posts =>
+              res.json({
+                success: true,
+                data: posts
+              })
+            );
+          // res.json({ success: true, data: post })
+        });
       })
       .catch(err => res.status(404).json({ postnotfound: "No post found" }));
   }

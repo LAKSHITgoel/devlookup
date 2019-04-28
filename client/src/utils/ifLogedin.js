@@ -1,4 +1,11 @@
-export const isLogedin = () => {
+import setAuthToken from "./setAuthToken";
+import store from "../store";
+import jwt_decode from "jwt-decode";
+import { clearCurrentProfile } from "../actions/profileActions";
+import { setCurrentUser, logoutUser } from "../actions/authActions";
+
+
+export const ifLogedin = () => {
   if (localStorage.jwtToken) {
     // Set auth token header auth
     setAuthToken(localStorage.jwtToken);

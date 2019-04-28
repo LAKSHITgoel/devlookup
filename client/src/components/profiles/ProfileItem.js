@@ -131,7 +131,7 @@ class ProfileItem extends Component {
             )}
           </p>
           <Link
-            to={`/profile/${profile.handle}`}
+            to={`/profile/${profile.handle}/${profile._id}`}
             className="badge badge-pill badge-info"
           >
             View Profile
