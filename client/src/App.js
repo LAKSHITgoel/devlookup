@@ -20,9 +20,9 @@ import Profiles from "./components/profiles/Profiles";
 import GetProfile from "./components/profile/GetProfile";
 import Profile from "./components/profile/Profile";
 import Posts from "./components/posts/Posts";
-import Post from "./components/post/Post";
+// import Post from "./components/post/Post";
 import NotFound from "./components/not-found/NotFound";
-import {ifLogedin} from "./utils/ifLogedin";
+import { ifLogedin } from "./utils/ifLogedin";
 import "./App.css";
 
 ifLogedin();
@@ -34,50 +34,37 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/profiles" component={Profiles} />
-            <Route exact path="/profile/:handle" component={Profile} />
-            <Route exact path="/profile/:handle/:id" component={GetProfile} />
             <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/profiles" component={Profiles} />
+              <Route exact path="/profile/:handle" component={Profile} />
+              <Route exact path="/profile/:handle/:id" component={GetProfile} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
-            <Switch>
               <PrivateRoute
                 exact
                 path="/create-profile"
                 component={CreateProfile}
               />
-            </Switch>
-            <Switch>
               <PrivateRoute
                 exact
                 path="/edit-profile"
                 component={EditProfile}
               />
-            </Switch>
-            <Switch>
               <PrivateRoute
                 exact
                 path="/add-experience"
                 component={AddExperience}
               />
-            </Switch>
-            <Switch>
               <PrivateRoute
                 exact
                 path="/add-education"
                 component={AddEducation}
               />
-            </Switch>
-            <Switch>
               <PrivateRoute exact path="/feed" component={Posts} />
+              <Route exact path="/not-found" component={NotFound} />
             </Switch>
-            <Switch>
-              <PrivateRoute exact path="/post/:id" component={Post} />
-            </Switch>
-            <Route exact path="/not-found" component={NotFound} />
 
             <Footer />
           </div>

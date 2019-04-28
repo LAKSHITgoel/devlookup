@@ -50,7 +50,7 @@ class PostItem extends Component {
   };
 
   render() {
-    const { post, auth, showActions } = this.props;
+    const { post, auth } = this.props;
 
     return (
       <div className="news">
@@ -88,43 +88,46 @@ class PostItem extends Component {
           </div>
           <div className="added-content">{post.text}</div>
           <div className="feed-footer">
-            <button
-              onClick={
-                this.checkLikeOrDislike()
-                  ? this.onUnlikeClick.bind(this, post._id)
-                  : this.onLikeClick.bind(this, post._id)
-              }
-              type="button"
-              className="feed-auth-menu-options-button"
-            >
-              <i
-                className={
-                  this.checkLikeOrDislike()
-                    ? "fas fa-thumbs-up text-info"
-                    : "fas fa-thumbs-up"
-                }
-              />{" "}
-              <span className="">{post.likes.length + " Likes"}</span>
-            </button>
-            <button
-              onClick={this.onUnlikeClick.bind(this, post._id)}
-              type="button"
-              className="feed-auth-menu-options-button"
-            />
-            {post.comments.length !== 0 && (
+            <div className="left">
               <button
-                className="comment-toggle"
-                onClick={e => this.toggleComment(post._id)}
+                onClick={
+                  this.checkLikeOrDislike()
+                    ? this.onUnlikeClick.bind(this, post._id)
+                    : this.onLikeClick.bind(this, post._id)
+                }
+                type="button"
+                className="feed-auth-menu-options-button"
               >
-                {this.state.collapse !== post._id
-                  ? "View Comments"
-                  : "Hide Comments"}
+                <i
+                  className={
+                    this.checkLikeOrDislike()
+                      ? "fas fa-thumbs-up text-info"
+                      : "fas fa-thumbs-up"
+                  }
+                />{" "}
+                <span className="">{post.likes.length + " Likes"}</span>
               </button>
-            )}
+            </div>
+            <div className="right">
+              {post.comments.length !== 0 && (
+                <button
+                  className="comment-toggle"
+                  onClick={e => this.toggleComment(post._id)}
+                >
+                  {this.state.collapse !== post._id
+                    ? "View Comments"
+                    : "Hide Comments"}
+                </button>
+              )}
+            </div>
           </div>
           <MDBCollapse id={post._id} isOpen={this.state.collapse}>
             <div className="feed-comments-container">
-              <CommentContainer postId={post._id} auth={auth} comment={post.comments} />
+              <CommentContainer
+                postId={post._id}
+                auth={auth}
+                comment={post.comments}
+              />
             </div>
           </MDBCollapse>
           <CommentForm postId={post._id} />

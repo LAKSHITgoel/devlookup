@@ -18,11 +18,7 @@ class Posts extends Component {
     if (posts === null || loading) {
       postContent = <Spinner />;
     } else {
-      postContent = (
-        // <div className="mdb-feed">
-        <PostFeed posts={posts} />
-        // </div>
-      );
+      postContent = <PostFeed posts={posts} />;
     }
 
     return (
@@ -30,7 +26,9 @@ class Posts extends Component {
         <div className="container">
           <PostForm />
           <div className="row">
-            <div className="col-md-12">{postContent}</div>
+            <div className="col-lg-3 col-xl-3" />
+            <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6">{postContent}</div>
+            <div className="col-lg-3 col-xl-3" />
           </div>
         </div>
       </div>

@@ -40,7 +40,7 @@ class CommentForm extends React.Component {
   render() {
     return (
       <form className="comment-form-container" onSubmit={this.onSubmit}>
-        <div className="comment-form">
+        <div className="comment-form left">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <textarea
               name="comment"
@@ -57,7 +57,7 @@ class CommentForm extends React.Component {
               )}
           </div>
         </div>
-        <div className="comment-btn-area">
+        <div className="comment-btn-area right">
           <button className="btn btn-rounded btn-sm blue-gradient">
             comment
           </button>
