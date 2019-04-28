@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPost } from '../../actions/postActions';
+import { MDBBtn } from 'mdbreact';
 
 class PostForm extends Component {
   constructor(props) {
@@ -59,9 +60,9 @@ class PostForm extends Component {
                   error={errors.text}
                 />
               </div>
-              <button type="submit" className="btn btn-dark">
-                Submit
-              </button>
+              <MDBBtn outline rounded type="submit" color="primary">
+                Post
+              </MDBBtn>
             </form>
           </div>
         </div>

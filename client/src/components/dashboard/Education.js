@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { deleteEducation } from '../../actions/profileActions';
+import { MDBBtn } from 'mdbreact';
 
 class Education extends Component {
   onDeleteClick(id) {
@@ -23,12 +24,14 @@ class Education extends Component {
           )}
         </td>
         <td>
-          <button
+          <MDBBtn
+            outline
+            rounded
+            color="danger"
             onClick={this.onDeleteClick.bind(this, edu._id)}
-            className="btn btn-danger"
           >
-            Delete
-          </button>
+            <i className="fa fa-trash"></i>
+          </MDBBtn>
         </td>
       </tr>
     ));
