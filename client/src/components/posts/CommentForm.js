@@ -59,7 +59,7 @@ class CommentForm extends React.Component {
         </div>
         <div className="comment-btn-area right">
           <button className="btn btn-rounded btn-sm blue-gradient">
-            comment
+            <i className="fa fa-comment" />
           </button>
         </div>
       </form>

@@ -118,14 +118,14 @@ class Register extends Component {
                 <p className="card-text text-center small">Or register with</p>
                 <div className="icon-container">
                   <a
-                    href="/auth/github"
+                    href="https://devlookup.herokuapp.com/auth/github"
                     title="Github"
                     className="github-icon-link"
                   >
                     <div className="github icon" />
                   </a>
                   <a
-                    href="/auth/google"
+                    href="https://devlookup.herokuapp.com/auth/google"
                     title="Google"
                     className="google-icon-link"
                   >

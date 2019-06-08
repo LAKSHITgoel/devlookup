@@ -104,14 +104,14 @@ class Login extends Component {
                 <p className="card-text text-center small">Or login with</p>
                 <div className="icon-container">
                   <a
-                    href="http://localhost:8080/auth/github"
+                    href="https://devlookup.herokuapp.com/auth/github"
                     title="Github"
                     className="github-icon-link"
                   >
                     <div className="github icon" />
                   </a>
                   <a
-                    href="http://localhost:8080/auth/google"
+                    href="https://devlookup.herokuapp.com/auth/google"
                     titlt="Google"
                     className="google-icon-link"
                   >

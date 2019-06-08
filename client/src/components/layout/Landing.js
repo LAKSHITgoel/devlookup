@@ -16,7 +16,7 @@ class Landing extends Component {
         <div className="dark-overlay landing-inner text-light">
           <div className="container">
             <div className="row">
-              <div className="col-md-12 text-center">
+              <div className="col-md-11 text-center">
                 <h1 className="display-3 mb-4">{"< devLookup />"}</h1>
                 <p className="lead">
                   {" "}
@@ -24,10 +24,10 @@ class Landing extends Component {
                   from other developers
                 </p>
                 <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
+                <Link to="/register" className="btn btn-lg purple-gradient mr-2">
                   Sign Up
                 </Link>
-                <Link to="/login" className="btn btn-lg btn-light">
+                <Link to="/login" className="btn btn-lg aqua-gradient">
                   Login
                 </Link>
               </div>
